@@ -1,4 +1,5 @@
 import psycopg2
+import os
 
 def createPosts(cursor):
     cursor.execute("DROP TABLE IF EXISTS posts CASCADE;")
