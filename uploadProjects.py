@@ -14,6 +14,9 @@ def parsePostFile(filename):
                 if pDict[p[0]] == '':
                     pDict[p[0]] = None
 
+    with open(filename,"w") as f:
+        f.write("NONE")
+
     #print(pList)
     return pList
 

@@ -1,5 +1,1 @@
-title::We went somewhere...
-date::December 18, 2017
-image::thisImage.png
-body::This is the body to a blog post...
-~~~
+NONE
