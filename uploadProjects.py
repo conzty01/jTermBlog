@@ -25,8 +25,8 @@ def enterPost(cur, projectDict):
     cur.execute(executeStr,(projectDict['title'],projectDict['date'],projectDict['image'],projectDict['body']))
 
 def run():
-    #conn = psycopg2.connect(os.environ["DATABASE_URL"])
-    conn = psycopg2.connect(dbname="blog", user="conzty01")
+    conn = psycopg2.connect(os.environ["DATABASE_URL"])
+    #conn = psycopg2.connect(dbname="blog", user="conzty01")
     cur = conn.cursor()
 
     projectList = parsePostFile("post.txt")

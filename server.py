@@ -5,8 +5,8 @@ import psycopg2.extras
 app = Flask(__name__)
 app.config['TEMPLATES_AUTO_RELOAD'] = True
 
-conn = psycopg2.connect(dbname="blog", user="conzty01")
-#conn = psycopg2.connect(os.environ["DATABASE_URL"])
+#conn = psycopg2.connect(dbname="blog", user="conzty01")
+conn = psycopg2.connect(os.environ["DATABASE_URL"])
 
 @app.route("/")
 def index():
