@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% block blogEntries %}
+ {% for p in posts: %}
+ <div class="w3-card-4 w3-margin w3-white">
+  <img src="/static/images/{{p[3]}}" style="width:100%">
+    <div class="w3-container">
+      <h3><b>{{p[1]}}</b></h3>
+      <h5><span class="w3-opacity">{{p[2].strftime('%B %d, %Y')}}</span></h5>
+    </div>
+
+    <div class="w3-container">
+      <p>{{p[4]}}</p>
+      <div class="w3-row">
+        <div class="w3-col m8 s12">
+          <p><button class="w3-button w3-padding-large w3-white w3-border" href="/{{ p[id] }}"><b>READ MORE »</b></button></p>
+        </div>
+      </div>
+    </div>
+ </div>
+ {% endfor %}
+{% endblock %}
+
+{% block archive %}
+<ul class="w3-ul w3-hoverable w3-white">
+  {% for p in posts: %}
+  <li class="w3-padding-16">
+    <img src="/w3images/workshop.jpg" alt="Image" class="w3-left w3-margin-right" style="width:50px">
+    <span class="w3-large">{{p[1]}}</span><br>
+    <span>{{p[2].strftime('%B %d %Y')}}</span>
+  </li>
+  {% endfor %}
+</ul>
+{% endblock %}
+
+{% block tags %}
+<p>
+{% for t in tags: %}
+<span class="w3-tag w3-black w3-margin-bottom">Travel</span>
+{% endfor %}
+</p>
+{% endblock %}
