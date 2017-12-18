@@ -1,1 +1,4 @@
-NONE
+title::Inital Commit
+date::December 18, 2017
+image::image.png
+body::This is the body of my first post... Let's see how this goes...
