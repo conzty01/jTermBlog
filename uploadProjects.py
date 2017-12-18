@@ -15,6 +15,7 @@ def parsePostFile(filename):
                 if pDict[p[0]] == '':
                     pDict[p[0]] = None
 
+    print("formatting post.txt")
     with open(filename,"w") as f:
         f.write("NONE")
 
