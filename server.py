@@ -11,18 +11,14 @@ conn = psycopg2.connect(dbname="blog", user="conzty01")
 @app.route("/")
 def index():
     c = conn.cursor()
-    v = conn.cursor()
     c.execute("SELECT * FROM posts ORDER BY (date) DESC;")
-    v.execute("SELECT name FROM tags;")
-    return render_template("index.html",posts=c.fetchall(),tags=v.fetchall())
+    return render_template("index.html",posts=c.fetchall())
 
-@app.route("/<id>")
+@app.route("/post/<id>")
 def post(id):
     c = conn.cursor()
-    v = conn.cursor()
     c.execute("SELECT * FROM posts WHERE id=%d;",(int(id)))
-    v.execute("SELECT name FROM tags;")
-    return render_template("post.html",post=c.fetchall(),tags=v.fetchall())
+    return render_template("post.html",post=c.fetchall())
 
 if __name__ == "__main__":
     app.run(debug=True)
