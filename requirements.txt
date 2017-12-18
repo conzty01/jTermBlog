@@ -1,7 +1,6 @@
 alabaster==0.7.9
 apache-log-parser==1.7.0
 appnope==0.1.0
-apturl==0.5.2
 Babel==2.3.4
 beautifulsoup4==4.4.1
 brewer2mpl==1.4.1
