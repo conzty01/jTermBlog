@@ -18,7 +18,7 @@ def parsePostFile(filename):
     with open(filename,"w") as f:
         f.write("NONE")
 
-    #print(pList)
+    print(pList)
     return pList
 
 def enterPost(cur, projectDict):
@@ -36,6 +36,7 @@ def run():
         enterPost(cur, item)
 
     conn.commit()
+    print("finished")
 
 if __name__ == "__main__":
     run()
