@@ -13,7 +13,7 @@
       <p>{{p[4]}}</p>
       <div class="w3-row">
         <div class="w3-col m8 s12">
-          <p><button class="w3-button w3-padding-large w3-white w3-border" href="/{{ p[id] }}"><b>READ MORE »</b></button></p>
+          <p><a class="w3-button w3-padding-large w3-white w3-border" href="/post/{{p[0]}}"><b>READ MORE »</b></a></p>
         </div>
       </div>
     </div>
@@ -21,7 +21,7 @@
  {% endfor %}
 {% endblock %}
 
-{% block archive %}
+{% block postArchive %}
 <ul class="w3-ul w3-hoverable w3-white">
   {% for p in posts: %}
   <li class="w3-padding-16">
@@ -31,12 +31,4 @@
   </li>
   {% endfor %}
 </ul>
-{% endblock %}
-
-{% block tags %}
-<p>
-{% for t in tags: %}
-<span class="w3-tag w3-black w3-margin-bottom">Travel</span>
-{% endfor %}
-</p>
 {% endblock %}
