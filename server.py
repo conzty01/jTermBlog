@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request
 import psycopg2
 import psycopg2.extras
+import os
 
 app = Flask(__name__)
 app.config['TEMPLATES_AUTO_RELOAD'] = True

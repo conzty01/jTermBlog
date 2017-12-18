@@ -1,4 +1,5 @@
 import psycopg2
+import os
 
 def parsePostFile(filename):
     pList = []
