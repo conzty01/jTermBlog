@@ -26,8 +26,8 @@ def enterPost(cur, projectDict):
         print("DUPLICATE POST: '{}' on {}".format(projectDict["title"],projectDict["date"]))
 
 def run():
-    #conn = psycopg2.connect(os.environ["DATABASE_URL"])
-    conn = psycopg2.connect(dbname="blog", user="conzty01")
+    conn = psycopg2.connect(os.environ["DATABASE_URL"])
+    #conn = psycopg2.connect(dbname="blog", user="conzty01")
     cur = conn.cursor()
     print("running")
 
