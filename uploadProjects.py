@@ -15,16 +15,15 @@ def parsePostFile(filename):
                 if pDict[p[0]] == '':
                     pDict[p[0]] = None
 
-    print("formatting post.txt")
-    with open(filename,"w") as f:
-        f.write("NONE")
-
     print(pList)
     return pList
 
 def enterPost(cur, projectDict):
-    executeStr = "INSERT INTO posts (title, date, image, body) VALUES (%s,TO_DATE(%s, 'Month DD, YYYY'),%s,%s);"
-    cur.execute(executeStr,(projectDict['title'],projectDict['date'],projectDict['image'],projectDict['body']))
+    try:
+        executeStr = "INSERT INTO posts (title, date, image, body) VALUES (%s,TO_DATE(%s, 'Month DD, YYYY'),%s,%s);"
+        cur.execute(executeStr,(projectDict['title'],projectDict['date'],projectDict['image'],projectDict['body']))
+    except psycopg2.IntegrityError:
+        print("DUPLICATE POST: '{}' on {}".format(projectDict["title"],projectDict["date"]))
 
 def run():
     conn = psycopg2.connect(os.environ["DATABASE_URL"])

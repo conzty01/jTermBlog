@@ -11,7 +11,8 @@ def createPosts(cursor):
         date            date,
         image           varchar(200),
         body            text,
-        PRIMARY KEY (id)
+        PRIMARY KEY (id),
+        UNIQUE (title,date)
     );
 
     """)
@@ -31,9 +32,10 @@ def createPost_Tag(cursor):
     cursor.execute("""
 
     CREATE TABLE post_tags (
+        id               serial,
         post_id          int,
         tag_id           int,
-        PRIMARY KEY (post_id,tag_id),
+        PRIMARY KEY (id),
         FOREIGN KEY (post_id) REFERENCES posts(id),
         FOREIGN KEY (tag_id) REFERENCES tags(id)
     );
