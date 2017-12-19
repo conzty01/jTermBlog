@@ -1,0 +1,8 @@
+title::
+date::
+image::
+image_alt::
+abstract:
+body::
+tags::
+~~~
