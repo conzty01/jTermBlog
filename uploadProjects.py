@@ -20,14 +20,14 @@ def parsePostFile(filename):
 
 def enterPost(cur, projectDict):
     try:
-        executeStr = "INSERT INTO posts (title, date, image, body) VALUES (%s,TO_DATE(%s, 'Month DD, YYYY'),%s,%s);"
-        cur.execute(executeStr,(projectDict['title'],projectDict['date'],projectDict['image'],projectDict['body']))
+        executeStr = "INSERT INTO posts (title, date, image, image_alt, abstract, body) VALUES (%s,TO_DATE(%s, 'Month DD, YYYY'),%s,%s,%s,%s);"
+        cur.execute(executeStr,(projectDict['title'],projectDict['date'],projectDict['image'],projectDict['image_alt'],projectDict['abstract'],projectDict['body']))
     except psycopg2.IntegrityError:
         print("DUPLICATE POST: '{}' on {}".format(projectDict["title"],projectDict["date"]))
 
 def run():
-    conn = psycopg2.connect(os.environ["DATABASE_URL"])
-    #conn = psycopg2.connect(dbname="blog", user="conzty01")
+    #conn = psycopg2.connect(os.environ["DATABASE_URL"])
+    conn = psycopg2.connect(dbname="blog", user="conzty01")
     cur = conn.cursor()
     print("running")
 

@@ -10,6 +10,8 @@ def createPosts(cursor):
         title           varchar(200),
         date            date,
         image           varchar(200),
+        image_alt       varchar(200),
+        abstract        text,
         body            text,
         PRIMARY KEY (id),
         UNIQUE (title,date)
@@ -43,8 +45,8 @@ def createPost_Tag(cursor):
     """)
 
 def run():
-    conn = psycopg2.connect(os.environ["DATABASE_URL"])
-    #conn = psycopg2.connect(dbname="blog", user="conzty01")
+    #conn = psycopg2.connect(os.environ["DATABASE_URL"])
+    conn = psycopg2.connect(dbname="blog", user="conzty01")
     cur = conn.cursor()
 
     print("creating 'posts' table")
