@@ -1,1 +1,28 @@
 {% extends "base.html" %}
+
+{% block blogEntries %}
+<div class="w3-card-4 w3-margin w3-white">
+ <img src="/static/images/{{post[0]}}" alt="{{post[1]}}" style="width:100%">
+   <div class="w3-container">
+     <h3><b>{{post[2]}}</b></h3>
+     <h5><span class="w3-opacity">{{ post[3].strftime('%B %d, %Y') }}</span></h5>
+   </div>
+
+   <div class="w3-container">
+     <p>{{post[4]}}</p>
+   </div>
+ </div>
+{% endblock %}
+
+{% block postArchive %}
+<ul class="w3-ul w3-hoverable w3-white">
+  {% for p in archive: %}
+  <a href="/post/{{p[0]}}" style="text-decoration:none;">
+  <li class="w3-padding-16">
+    <img src="/static/images/{{p[1]}}" alt="{{p[2]}}" class="w3-left w3-margin-right" style="width:50px">
+    <span class="w3-large">{{p[3]}}</span><br>
+    <span>{{p[4].strftime('%B %d, %Y')}}</span>
+  </li></a>
+  {% endfor %}
+</ul>
+{% endblock %}
