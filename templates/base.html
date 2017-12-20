@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+<link rel="stylesheet" href="static/css/master.css">
 <style>
 body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
 </style>
@@ -16,9 +17,9 @@ and is wrapped around the whole page content, except for the footer in this exam
 
 <!-- Header -->
 {% block header %}
-<header class="w3-container w3-center w3-padding-32">
+<header class="head w3-container w3-center w3-padding-32">
   <a href="/" style="text-decoration:none;"><h1><b>MY BLOG</b></h1></a>
-  <p>Welcome to the blog of <span class="w3-tag">Tyler Conzett</span></p>
+  <p>Welcome to the blog of <span class="tag">Tyler Conzett</span></p>
 {% endblock %}
 </header>
 
@@ -81,7 +82,7 @@ and is wrapped around the whole page content, except for the footer in this exam
   <!-- About Card -->
   {% block about %}
   <div class="w3-card w3-margin w3-margin-top">
-  <img src="/static/images/avatar.jpg" style="width:100%;">
+  <img src="/static/images/avatar.gif" style="width:100%;">
     <div class="w3-container w3-white">
       <h4><b>Tyler</b></h4>
       <p>Guten Tag! Computer science student by day, trumpet player by night--

@@ -1,0 +1,31 @@
+@charset "utf-8";
+hr {
+border-top: 1px solid #4717F6 !important;
+}
+h4 {
+color: #000 !important;
+}
+.w3-light-grey {
+background-color: #0E0B16 !important;
+color: #E7DFDD !important;
+}
+.w3-container {
+background-color: #E7DFDD;
+}
+.w3-white {
+background-color: #E7DFDD !important;
+}
+.head {
+background-color: #0E0B16 !important;
+}
+.tag {
+background-color: #4717F6;
+color: #FFF !important;
+display: inline-block;
+padding-left: 8px;
+padding-right: 8px;
+text-align: center;
+}
+.w3-dark-grey {
+background-color: #4717F6 !important;
+}
