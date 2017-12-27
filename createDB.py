@@ -25,7 +25,8 @@ def createTags(cursor):
     CREATE TABLE tags (
         id              serial,
         name            varchar(50),
-        PRIMARY KEY (id)
+        PRIMARY KEY (id),
+        UNIQUE (name)
     );
 
     """)
@@ -37,7 +38,8 @@ def createPost_Tag(cursor):
         id               serial,
         post_id          int,
         tag_id           int,
-        PRIMARY KEY (id),
+        PRIMARY KEY (post_id, tag_id),
+        UNIQUE (post_id,tag_id),
         FOREIGN KEY (post_id) REFERENCES posts(id),
         FOREIGN KEY (tag_id) REFERENCES tags(id)
     );
