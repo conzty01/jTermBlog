@@ -20,6 +20,14 @@ color: #272932 !important;
 background-color: #828489 !important;
 color: #272932 !important;
 }
+.w3-black {
+font-size: 1em !important;
+}
+.tagColor {
+background-color: #E5E5E6 !important;
+color: #000 !important;
+font-size: 1em !important;
+}
 .w3-container {
 background-color: #FFFCFF;
 }

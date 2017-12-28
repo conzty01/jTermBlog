@@ -1,17 +1,45 @@
 {% extends "base.html" %}
 
 {% block blogEntries %}
+{% if post|length == 0: %}
 <div class="w3-card-4 w3-margin w3-white">
- <img src="/static/images/{{post[0]}}" alt="{{post[1]}}" style="width:100%">
+    <div class="w3-container">
+      <h3><b>This is not the Page You're Looking For!</b></h3>
+      <h5><span class="w3-opacity">--</span></h5>
+    </div>
+
+    <div class="w3-container">
+      <p>Unfortunately, the query you were searching for could not be found! I apologize for the
+         inconvience, but honestly, I am not sure how you managed to get to this page! Please continue
+         about your browsing and have a pleasant day!
+      </p>
+      <div class="w3-row">
+      </div>
+    </div>
+ </div>
+{% endif %}
+{% for posts in post: %}
+<div class="w3-card-4 w3-margin w3-white">
+ <img src="/static/images/{{posts[0]}}" alt="{{posts[1]}}" style="width:100%">
    <div class="w3-container">
-     <h3><b>{{post[2]}}</b></h3>
-     <h5><span class="w3-opacity">{{ post[3].strftime('%B %d, %Y') }}</span></h5>
+     <h3><b>{{posts[2]}}</b></h3>
+     <h5><span class="w3-opacity">{{ posts[3].strftime('%B %d, %Y') }}</span></h5>
    </div>
 
    <div class="w3-container">
-     <p>{{post[4]}}</p>
+     <p>{{posts[4]}}</p>
+   </div>
+   <div class="w3-row">
+     <div class="w3-col m8 s12">
+       <p>
+         {% for a in posts[6]: %}
+         <span class="w3-tag w3-black w3-margin-bottom">{{a}}</span>
+         {% endfor %}
+       </p>
+     </div>
    </div>
  </div>
+{% endfor %}
 {% endblock %}
 
 {% block postArchive %}

@@ -29,6 +29,15 @@
         <div class="w3-col m8 s12">
           <p><a class="w3-button w3-padding-large w3-white w3-border" href="/post/{{p[5]}}"><b>READ MORE »</b></a></p>
         </div>
+      <div class="w3-row">
+        <div class="w3-col m8 s12">
+          <p>
+            {% for a in p[6]: %}
+            <span class="w3-tag w3-black w3-margin-bottom">{{a}}</span>
+            {% endfor %}
+          </p>
+        </div>
+      </div>
       </div>
     </div>
  </div>
@@ -37,19 +46,19 @@
 
 {% block postArchive %}
 <ul class="w3-ul w3-hoverable w3-white">
-  {% if posts|length == 0: %}
+  {% if archive|length == 0: %}
   <li class="w3-padding-16">
       <img class="w3-left w3-margin-right" style="width:50px">
       <span class="w3-large">--</span><br>
       <span>There are no posts in the archive.</span>
   </li>
   {% endif %}
-  {% for p in posts: %}
-  <a href="/post/{{p[5]}}" style="text-decoration:none;">
+  {% for p in archive: %}
+  <a href="/post/{{p[0]}}" style="text-decoration:none;">
   <li class="w3-padding-16">
-    <img src="/static/images/{{p[0]}}" alt="{{p[1]}}" class="w3-left w3-margin-right" style="width:50px">
-    <span class="w3-large">{{p[2]}}</span><br>
-    <span>{{p[3].strftime('%B %d, %Y')}}</span>
+    <img src="/static/images/{{p[1]}}" alt="{{p[2]}}" class="w3-left w3-margin-right" style="width:50px">
+    <span class="w3-large">{{p[3]}}</span><br>
+    <span>{{p[4].strftime('%B %d, %Y')}}</span>
   </li></a>
   {% endfor %}
 </ul>
