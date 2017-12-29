@@ -17,7 +17,27 @@
  {% endif %}
  {% for p in posts: %}
  <div class="w3-card-4 w3-margin w3-white">
-  <img src="/static/images/{{p[0]}}" alt="{{p[1]}}" style="width:100%">
+ <div class="slideshow-container">
+   {% for i in p[0]: %}
+   <img class="mySlides{{p[5]}}" src="{{i}}" style="width:100%">
+   {% endfor %}
+
+   <button class="w3-button w3-black w3-display-left" onclick="plusDivs(mySlides{{p[5]}},-1)">&#10094;</button>
+   <button class="w3-button w3-black w3-display-right" onclick="plusDivs(mySlides{{p[5]}}, 1)">&#10095;</button>
+ </div>
+
+ <div class="slideshow-container">
+   {% for i in p[0] %}
+   <div class="mySlides{{p[5]}} fade">
+     <img src="/static/images/{{i}}" style="width:100%;" alt="{{p[1]}}" />
+   </div>
+   {% endfor %}
+   {% for i in p[0] %}
+   <div class="dotCont">
+     <span class="dot" onclick="plusDivs('mySlides{{p[5]}}',{{loop.index}})"></span>
+   </div>
+   {% endfor %}
+ </div>
     <div class="w3-container">
       <h3><b>{{p[2]}}</b></h3>
       <h5><span class="w3-opacity">{{p[3].strftime('%B %d, %Y')}}</span></h5>
