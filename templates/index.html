@@ -17,27 +17,19 @@
  {% endif %}
  {% for p in posts: %}
  <div class="w3-card-4 w3-margin w3-white">
- <div class="slideshow-container">
-   {% for i in p[0]: %}
-   <img class="mySlides{{p[5]}}" src="{{i}}" style="width:100%">
+ <div class="w3-content w3-display-container">
+   {% if p[0][0] != '': %}
+   <img id="0" name="active" class="mySlides{{p[5]}}" src="static/images/{{p[0][0]}}">
+   {% for i in p[0][1:]: %}
+   <img id="{{loop.index}}" name="inactive" class="mySlides{{p[5]}}" src="static/images/{{i}}" style="display:none;">
    {% endfor %}
 
-   <button class="w3-button w3-black w3-display-left" onclick="plusDivs(mySlides{{p[5]}},-1)">&#10094;</button>
-   <button class="w3-button w3-black w3-display-right" onclick="plusDivs(mySlides{{p[5]}}, 1)">&#10095;</button>
- </div>
-
- <div class="slideshow-container">
-   {% for i in p[0] %}
-   <div class="mySlides{{p[5]}} fade">
-     <img src="/static/images/{{i}}" style="width:100%;" alt="{{p[1]}}" />
-   </div>
-   {% endfor %}
-   {% for i in p[0] %}
-   <div class="dotCont">
-     <span class="dot" onclick="plusDivs('mySlides{{p[5]}}',{{loop.index}})"></span>
-   </div>
-   {% endfor %}
- </div>
+   {% if p[0]|length > 1: %}
+   <button class="w3-button w3-black w3-display-left" onclick="showDivs('mySlides{{p[5]}}',-1)">&#10094;{{p[0]|length}}</button>
+   <button class="w3-button w3-black w3-display-right" onclick="showDivs('mySlides{{p[5]}}',1)">{{p[0]|length}}&#10095;</button>
+   {% endif %}
+   {% endif %}
+  </div>
     <div class="w3-container">
       <h3><b>{{p[2]}}</b></h3>
       <h5><span class="w3-opacity">{{p[3].strftime('%B %d, %Y')}}</span></h5>
@@ -62,24 +54,4 @@
     </div>
  </div>
  {% endfor %}
-{% endblock %}
-
-{% block postArchive %}
-<ul class="w3-ul w3-hoverable w3-white">
-  {% if archive|length == 0: %}
-  <li class="w3-padding-16">
-      <img class="w3-left w3-margin-right" style="width:50px">
-      <span class="w3-large">--</span><br>
-      <span>There are no posts in the archive.</span>
-  </li>
-  {% endif %}
-  {% for p in archive: %}
-  <a href="/post/{{p[0]}}" style="text-decoration:none;">
-  <li class="w3-padding-16">
-    <img src="/static/images/{{p[1]}}" alt="{{p[2]}}" class="w3-left w3-margin-right" style="width:50px">
-    <span class="w3-large">{{p[3]}}</span><br>
-    <span>{{p[4].strftime('%B %d, %Y')}}</span>
-  </li></a>
-  {% endfor %}
-</ul>
 {% endblock %}
