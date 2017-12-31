@@ -65,3 +65,12 @@ background-color: #272932 !important;
     width: 100%;
     background: #4D7EA8;
 }
+.archivePlaceholderImg {
+    width: 50px;
+    display: block;
+    background-color: inherit;
+}
+.w3-content .w3-display-container > img {
+    width: 100%;
+    max-height: 700px;
+}

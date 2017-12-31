@@ -13,6 +13,8 @@ def parsePostFile(filename):
                 p = line.split("::")
                 #print("======",p)
                 pDict[p[0]] = p[-1][:-1]
+                if p[0] == "images":
+                    pDict[p[0]] = p[-1][:-1].split(", ")
                 if p[0] == "tags":
                     #print("In Tags")
                     pDict[p[0]] = p[-1][:-1].split(", ")
@@ -24,8 +26,8 @@ def parsePostFile(filename):
 
 def enterPost(cur, projectDict):
     try:
-        executeStr = "INSERT INTO posts (title, date, image, image_alt, abstract, body) VALUES (%s,TO_DATE(%s, 'Month DD, YYYY'),%s,%s,%s,%s);"
-        cur.execute(executeStr,(projectDict['title'],projectDict['date'],projectDict['image'],projectDict['image_alt'],projectDict['abstract'],projectDict['body']))
+        executeStr = "INSERT INTO posts (title, date, images, image_alt, abstract, body) VALUES (%s,TO_DATE(%s, 'Month DD, YYYY'),%s,%s,%s,%s);"
+        cur.execute(executeStr,(projectDict['title'],projectDict['date'],projectDict['images'],projectDict['image_alt'],projectDict['abstract'],projectDict['body']))
     except psycopg2.IntegrityError:
         print("DUPLICATE POST: '{}' on {}".format(projectDict["title"],projectDict["date"]))
 

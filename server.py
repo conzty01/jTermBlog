@@ -15,7 +15,7 @@ def index():
     a = conn.cursor()
     t = conn.cursor()
     c.execute("""
-    SELECT posts.image, posts.image_alt, posts.title, posts.date, posts.abstract, posts.id, tg
+    SELECT posts.images, posts.image_alt, posts.title, posts.date, posts.abstract, posts.id, tg
     FROM posts JOIN
         (SELECT post_tags.post_id, array_agg(tags.name) AS tg
         FROM post_tags JOIN tags ON (post_tags.tag_id = tags.id)
@@ -23,7 +23,7 @@ def index():
     ORDER BY posts.date DESC;
     """)
 
-    a.execute("SELECT id, image, image_alt, title, date FROM posts ORDER BY date DESC;")
+    a.execute("SELECT id, images, image_alt, title, date FROM posts ORDER BY date DESC;")
     t.execute("SELECT id, name FROM tags ORDER BY name ASC;")
     return render_template("index.html",posts=c.fetchall(),archive=a.fetchall(),passiveTags=t.fetchall(),activeTags=())
 
@@ -34,7 +34,7 @@ def post(pid):
     t = conn.cursor()
     s = conn.cursor()
     c.execute("""
-    SELECT posts.image, posts.image_alt, posts.title, posts.date, posts.body, posts.id, tg
+    SELECT posts.images, posts.image_alt, posts.title, posts.date, posts.body, posts.id, tg, posts.abstract
     FROM posts JOIN
         (SELECT post_tags.post_id, array_agg(tags.name) AS tg
         FROM post_tags JOIN tags ON (post_tags.tag_id = tags.id)
@@ -42,7 +42,7 @@ def post(pid):
     WHERE id = %s;
     """, (pid))
 
-    a.execute("SELECT id, image, image_alt, title, date FROM posts ORDER BY date DESC;")
+    a.execute("SELECT id, images, image_alt, title, date FROM posts ORDER BY date DESC;")
     t.execute("""SELECT tags.id, tags.name
                  FROM tags JOIN post_tags ON (tags.id = post_tags.tag_id)
                  WHERE post_tags.post_id != %s
@@ -60,7 +60,7 @@ def tags(tname):
     t = conn.cursor()
     s = conn.cursor()
     c.execute("""
-    SELECT posts.image, posts.image_alt, posts.title, posts.date, posts.abstract, posts.id, tg
+    SELECT posts.images, posts.image_alt, posts.title, posts.date, posts.abstract, posts.id, tg
     FROM posts JOIN
         (SELECT post_tags.post_id, array_agg(tags.name) AS tg
         FROM post_tags JOIN tags ON (post_tags.tag_id = tags.id)
@@ -68,7 +68,7 @@ def tags(tname):
     WHERE %s = ANY (tg);
     """, (tname,))
 
-    a.execute("SELECT id, image, image_alt, title, date FROM posts ORDER BY date DESC;")
+    a.execute("SELECT id, images, image_alt, title, date FROM posts ORDER BY date DESC;")
     t.execute("SELECT * FROM tags WHERE name != %s ORDER BY name ASC;", (tname,))
     s.execute("SELECT * FROM tags WHERE name = %s ORDER BY name ASC;", (tname,))
     return render_template("post.html",post=c.fetchall(),archive=a.fetchall(),passiveTags=t.fetchall(), activeTags=s.fetchall())

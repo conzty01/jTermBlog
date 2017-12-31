@@ -9,7 +9,7 @@ def createPosts(cursor):
         id              serial,
         title           varchar(200),
         date            date,
-        image           varchar(200),
+        images          text[],
         image_alt       varchar(200),
         abstract        text,
         body            text,
