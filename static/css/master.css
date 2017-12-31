@@ -74,3 +74,7 @@ background-color: #272932 !important;
     width: 100%;
     max-height: 700px;
 }
+.arch {
+    max-height: 600px;
+    overflow-y: scroll;
+}

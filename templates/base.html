@@ -101,7 +101,7 @@ and is wrapped around the whole page content, except for the footer in this exam
       <h4>Archive</h4>
     </div>
     {% block postArchive %}
-    <ul class="w3-ul w3-hoverable w3-white">
+    <ul class="w3-ul w3-hoverable w3-white arch">
       {% if archive|length == 0: %}
       <li class="w3-padding-16">
           <img class="w3-left w3-margin-right" style="width:50px">
@@ -121,6 +121,10 @@ and is wrapped around the whole page content, except for the footer in this exam
       {% endfor %}
     </ul>
     {% endblock postArchive %}
+    <!--<div class="w3-white" style="line-height:1;padding-bottom:5px;">
+        <button class="w3-button w3-black w3-disabled w3-padding-large">Previous</button>
+        <button class="w3-button w3-black w3-padding-large">Next »</button>-->
+    </div>
   </div>
   <hr>
   {% block tags %}
