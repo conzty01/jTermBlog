@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 
 {% block blogEntries %}
-{% if post|length == 0: %}
+{% if posts|length == 0: %}
 <div class="w3-card-4 w3-margin w3-white">
     <div class="w3-container">
       <h3><b>This is not the Page You're Looking For!</b></h3>
@@ -18,38 +18,43 @@
     </div>
  </div>
 {% endif %}
-{% for posts in post: %}
+{% for post in posts: %}
 <div class="w3-card-4 w3-margin w3-white">
 <div class="w3-content w3-display-container">
- {% if posts[0] != '': %}
- <img id="0" name="active" class="mySlides{{posts[5]}}" src="/static/images/{{posts[0][0]}}" alt="{{posts[1]}}" style="width:100%">
- {% for i in posts[0][1:]: %}
- <img id="{{loop.index}}" name="inactive" class="mySlides{{posts[5]}}" src="/static/images/{{i}}" alt="{{posts[1]}}" style="width:100%;display:none;">
+ {% if post[0][0] != '': %}
+ <img id="0" name="active" class="mySlides{{post[5]}}" src="/static/images/{{post[0][0]}}" alt="{{post[1]}}" style="width:100%">
+ {% for i in post[0][1:]: %}
+ <img id="{{loop.index}}" name="inactive" class="mySlides{{post[5]}}" src="/static/images/{{i}}" alt="{{post[1]}}" style="width:100%;display:none;">
  {% endfor %}
 
- {% if posts[0]|length > 1: %}
- <button class="w3-button w3-black w3-display-left" onclick="showDivs('mySlides{{posts[5]}}',-1)">&#10094;{{posts[0]|length}}</button>
- <button class="w3-button w3-black w3-display-right" onclick="showDivs('mySlides{{posts[5]}}',1)">{{posts[0]|length}}&#10095;</button>
+ {% if post[0]|length > 1: %}
+ <button class="w3-button w3-black w3-display-left" onclick="showDivs('mySlides{{post[5]}}',-1)">&#10094;{{post[0]|length}}</button>
+ <button class="w3-button w3-black w3-display-right" onclick="showDivs('mySlides{{post[5]}}',1)">{{post[0]|length}}&#10095;</button>
  {% endif %}
  {% endif %}
  </div>
    <div class="w3-container">
-     <h3><b>{{posts[2]}}</b></h3>
-     <h5><span class="w3-opacity">{{ posts[3].strftime('%B %d, %Y') }}</span></h5>
+     <h3><b>{{post[2]}}</b></h3>
+     <h5><span class="w3-opacity">{{ post[3].strftime('%B %d, %Y') }}</span></h5>
    </div>
    <div class="w3-container">
-     <p>{{posts[7]}}</p>
+     <p>{{post[7]}}</p>
    </div>
    <div class="w3-container">
-     <p>{{posts[4]}}</p>
-   </div>
+     <p>{{post[4]}}</p>
    <div class="w3-row">
+     {% if post|length == 7: %}
+     <div class="w3-col m8 s12">
+       <p><a class="w3-button w3-padding-large w3-white w3-border" href="/post/{{post[5]}}"><b>READ MORE »</b></a></p>
+     </div>
+     {% endif %}
      <div class="w3-col m8 s12">
        <p>
-         {% for a in posts[6]: %}
+         {% for a in post[6]: %}
          <span class="w3-tag w3-black w3-margin-bottom">{{a}}</span>
          {% endfor %}
        </p>
+     </div>
      </div>
    </div>
  </div>
