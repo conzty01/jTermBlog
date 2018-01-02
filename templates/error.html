@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% block blogEntries %}
+<div class="w3-card-4 w3-margin w3-white">
+  <div class="w3-container">
+    <h3><b>{{e}}</b></h3>
+    <h5>{{text}}</h5>
+    <a href="{{url_for('index')}}">Let's go somewhere better.</a>
+  </div>
+</div>
+{% endblock %}
