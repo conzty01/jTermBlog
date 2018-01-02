@@ -19,9 +19,9 @@
  <div class="w3-card-4 w3-margin w3-white">
  <div class="w3-content w3-display-container">
    {% if p[0][0] != '': %}
-   <img id="0" name="active" class="mySlides{{p[5]}}" src="static/images/{{p[0][0]}}">
+   <img id="0" name="active" class="mySlides{{p[5]}}" src="/static/images/{{p[0][0]}}">
    {% for i in p[0][1:]: %}
-   <img id="{{loop.index}}" name="inactive" class="mySlides{{p[5]}}" src="static/images/{{i}}" style="display:none;">
+   <img id="{{loop.index}}" name="inactive" class="mySlides{{p[5]}}" src="/static/images/{{i}}" style="display:none;">
    {% endfor %}
 
    {% if p[0]|length > 1: %}

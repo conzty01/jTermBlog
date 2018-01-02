@@ -6,8 +6,8 @@ import os
 app = Flask(__name__)
 app.config['TEMPLATES_AUTO_RELOAD'] = True
 
-#conn = psycopg2.connect(dbname="blog", user="conzty01")
-conn = psycopg2.connect(os.environ["DATABASE_URL"])
+conn = psycopg2.connect(dbname="blog", user="conzty01")
+#conn = psycopg2.connect(os.environ["DATABASE_URL"])
 
 @app.route("/")
 def index():
@@ -20,12 +20,62 @@ def index():
         (SELECT post_tags.post_id, array_agg(tags.name) AS tg
         FROM post_tags JOIN tags ON (post_tags.tag_id = tags.id)
         GROUP BY post_tags.post_id) AS t ON posts.id = t.post_id
-    ORDER BY posts.date DESC;
+    ORDER BY posts.date DESC
+    LIMIT (7);
     """)
+
+    temp = c.fetchall()
+    if len(temp) != 7:
+        nextButton = True
+    else:
+        nextButton = False
 
     a.execute("SELECT id, images, image_alt, title, date FROM posts ORDER BY date DESC;")
     t.execute("SELECT id, name FROM tags ORDER BY name ASC;")
-    return render_template("index.html",posts=c.fetchall(),archive=a.fetchall(),passiveTags=t.fetchall(),activeTags=())
+    return render_template("index.html",posts=temp,archive=a.fetchall(),passiveTags=t.fetchall(),
+                                        activeTags=(),disNextB=nextButton,disPrevB=True)
+
+@app.route("/page/<num>")
+def gotoPage(num):
+    c = conn.cursor()
+    a = conn.cursor()
+    t = conn.cursor()
+    c.execute("""
+    SELECT posts.images, posts.image_alt, posts.title, posts.date, posts.abstract, posts.id, tg
+    FROM posts JOIN
+        (SELECT post_tags.post_id, array_agg(tags.name) AS tg
+        FROM post_tags JOIN tags ON (post_tags.tag_id = tags.id)
+        GROUP BY post_tags.post_id) AS t ON posts.id = t.post_id
+    ORDER BY posts.date DESC;
+    """)
+
+    num = int(num)
+    items = c.fetchall()
+    if (num-1)*6 > len(items):
+        temp = items[(num-2)*7:num*7]
+        nextButton = True
+        prevButton = False
+    elif num - 1 < 0:
+        temp = items[num*7:(num+1)*7]
+        nextButton = False
+        prevButton = True
+    elif num - 1 == 0:
+        temp = items[(num-1)*7:num*7]
+        nextButton = False
+        prevButton = True
+    else:
+        temp = items[(num-1)*7:num*7]
+        nextButton = False
+        prevButton = False
+
+    if num*7 > len(items):
+        nextButton = True
+
+    a.execute("SELECT id, images, image_alt, title, date FROM posts ORDER BY date DESC;")
+    t.execute("SELECT id, name FROM tags ORDER BY name ASC;")
+    return render_template("index.html",posts=temp,archive=a.fetchall(),passiveTags=t.fetchall(),
+                                        activeTags=(),disNextB=nextButton,disPrevB=prevButton)
+
 
 @app.route("/post/<pid>")
 def post(pid):
@@ -51,7 +101,8 @@ def post(pid):
                  FROM tags JOIN post_tags ON (tags.id = post_tags.tag_id)
                  WHERE post_tags.post_id = %s
                  ORDER BY name ASC;""", (pid))
-    return render_template("post.html",post=(c.fetchone(),),archive=a.fetchall(),passiveTags=t.fetchall(), activeTags=s.fetchall())
+    return render_template("post.html",post=(c.fetchone(),),archive=a.fetchall(),passiveTags=t.fetchall(),
+                                       activeTags=s.fetchall(),disNextB=True,disPrevB=True)
 
 @app.route("/tag/<tname>")
 def tags(tname):
@@ -71,7 +122,8 @@ def tags(tname):
     a.execute("SELECT id, images, image_alt, title, date FROM posts ORDER BY date DESC;")
     t.execute("SELECT * FROM tags WHERE name != %s ORDER BY name ASC;", (tname,))
     s.execute("SELECT * FROM tags WHERE name = %s ORDER BY name ASC;", (tname,))
-    return render_template("post.html",post=c.fetchall(),archive=a.fetchall(),passiveTags=t.fetchall(), activeTags=s.fetchall())
+    return render_template("post.html",post=c.fetchall(),archive=a.fetchall(),passiveTags=t.fetchall(),
+                                       activeTags=s.fetchall(),disNextB=True,disPrevB=True)
 
 if __name__ == "__main__":
     app.run(debug=True)
