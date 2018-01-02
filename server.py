@@ -14,6 +14,8 @@ def index():
     c = conn.cursor()
     a = conn.cursor()
     t = conn.cursor()
+
+    # Query for the 7 most recent posts
     c.execute("""
     SELECT posts.images, posts.image_alt, posts.title, posts.date, posts.abstract, posts.id, tg
     FROM posts JOIN
@@ -24,14 +26,19 @@ def index():
     LIMIT (7);
     """)
 
+    # If there are not 7 posts, then disable the navigation buttons
     temp = c.fetchall()
     if len(temp) != 7:
         nextButton = True
     else:
         nextButton = False
 
+    # Query for all posts for the archive
     a.execute("SELECT id, images, image_alt, title, date FROM posts ORDER BY date DESC;")
+
+    # Query for all of the tags
     t.execute("SELECT id, name FROM tags ORDER BY name ASC;")
+
     return render_template("index.html",posts=temp,archive=a.fetchall(),passiveTags=t.fetchall(),
                                         activeTags=(),disNextB=nextButton,disPrevB=True)
 
@@ -40,6 +47,8 @@ def gotoPage(num):
     c = conn.cursor()
     a = conn.cursor()
     t = conn.cursor()
+
+    # Query all posts
     c.execute("""
     SELECT posts.images, posts.image_alt, posts.title, posts.date, posts.abstract, posts.id, tg
     FROM posts JOIN
@@ -51,6 +60,8 @@ def gotoPage(num):
 
     num = int(num)
     items = c.fetchall()
+
+    # Logic to determine which navigation buttons are functional and which posts to show
     if (num-1)*6 > len(items):
         temp = items[(num-2)*7:num*7]
         nextButton = True
@@ -71,8 +82,12 @@ def gotoPage(num):
     if num*7 > len(items):
         nextButton = True
 
+    # Query for archive posts
     a.execute("SELECT id, images, image_alt, title, date FROM posts ORDER BY date DESC;")
+
+    # Query for tags
     t.execute("SELECT id, name FROM tags ORDER BY name ASC;")
+
     return render_template("index.html",posts=temp,archive=a.fetchall(),passiveTags=t.fetchall(),
                                         activeTags=(),disNextB=nextButton,disPrevB=prevButton)
 
@@ -82,6 +97,8 @@ def post(pid):
     a = conn.cursor()
     t = conn.cursor()
     s = conn.cursor()
+
+    # Query for posts matching the given id
     c.execute("""
     SELECT posts.images, posts.image_alt, posts.title, posts.date, posts.body, posts.id, tg, posts.abstract
     FROM posts JOIN
@@ -91,17 +108,23 @@ def post(pid):
     WHERE id = %s;
     """, (pid,))
 
+    # Query for archived posts
     a.execute("SELECT id, images, image_alt, title, date FROM posts ORDER BY date DESC;")
+
+    # Query for tags that are not used by the given post
     t.execute("""SELECT id, name FROM tags
                  WHERE name NOT IN (SELECT tags.name
                                     FROM tags JOIN post_tags ON (tags.id = post_tags.tag_id)
                                     WHERE post_tags.post_id = %s
                                     ORDER BY name ASC)
                  ORDER BY name ASC;""",(pid,))
+
+    # Query for tags used by the given post
     s.execute("""SELECT tags.id, tags.name
                  FROM tags JOIN post_tags ON (tags.id = post_tags.tag_id)
                  WHERE post_tags.post_id = %s
                  ORDER BY name ASC;""", (pid,))
+
     return render_template("post.html",posts=(c.fetchone(),),archive=a.fetchall(),passiveTags=t.fetchall(),
                                        activeTags=s.fetchall(),disNextB=True,disPrevB=True)
 
@@ -111,6 +134,8 @@ def tags(tname):
     a = conn.cursor()
     t = conn.cursor()
     s = conn.cursor()
+
+    # Query for all posts matching the given tag
     c.execute("""
     SELECT posts.images, posts.image_alt, posts.title, posts.date, posts.abstract, posts.id, tg
     FROM posts JOIN
@@ -121,9 +146,15 @@ def tags(tname):
     ORDER BY posts.date DESC;
     """, (tname,))
 
+    # Query for archive posts
     a.execute("SELECT id, images, image_alt, title, date FROM posts ORDER BY date DESC;")
+
+    # Query for all tags except the one given
     t.execute("SELECT * FROM tags WHERE name != %s ORDER BY name ASC;", (tname,))
+
+    # Query for given tag
     s.execute("SELECT * FROM tags WHERE name = %s ORDER BY name ASC;", (tname,))
+    
     return render_template("post.html",posts=c.fetchall(),archive=a.fetchall(),passiveTags=t.fetchall(),
                                        activeTags=s.fetchall(),disNextB=True,disPrevB=True)
 
