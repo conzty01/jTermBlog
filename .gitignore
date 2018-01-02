@@ -1,4 +1,2 @@
 __pycache__/*
 test/*
-static/images/*
-!static/images/.gitkeep
