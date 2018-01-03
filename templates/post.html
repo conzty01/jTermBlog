@@ -38,10 +38,10 @@
      <h5><span class="w3-opacity">{{ post[3].strftime('%B %d, %Y') }}</span></h5>
    </div>
    <div class="w3-container">
-     <p>{{post[7]}}</p>
+     <p>{{post[7]|safe}}</p>
    </div>
    <div class="w3-container">
-     <p>{{post[4]}}</p>
+     <p>{{post[4]|safe}}</p>
    <div class="w3-row">
      {% if post|length == 7: %}
      <div class="w3-col m8 s12">

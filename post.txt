@@ -1,6 +1,6 @@
 title::
 date::
-image::
+images::
 image_alt::
 abstract::
 body::
