@@ -1,8 +1,8 @@
-title::
-date::
+title::Hello, World!
+date::January 3, 2018
 images::
 image_alt::
-abstract::
-body::
-tags::Comma, Separated, Values
+abstract::The Preliminary Post
+body::Its alive! Thank you for stopping by and welcome to my very own blog! Here I will be posting about my experiences whilst on my J-Term trip to the West Coast exploring the world of entrepreneurship in Silicon Valley. If you're reading this and nothing looks out of place, then I am proud to say that this blog works! I should probably mention that I created this blog from essentially the ground up using CS330 and w3schools as my guide. It has been quite a fun ride developing this site and I have thoroughly enjoyed the learning process. It may not be perfect, but it's good enough for my purposes</p><p>Presently, I am still at home as we will not leave for our trip until the 8th, but I wanted to test out all of the features before I left so that I had an idea of what to expect. For this trip, I will not be bringing my daily laptop as it rather large and much to valuable for me to feel comfortable taking it across the country. Instead, I will be bringing a Lenovo Ideapad that I snagged from my high school a few years back when they were replacing their old tech. Once I became a bit more proficient with the command line, I outfitted it with a Lubuntu distro and I use it as a portable linux playground. I believe that this will be a nice substitution to my other machine-- particularly since I won't need to run a VM on an external drive in order to send my posts to my server.</p><p>I'd love to talk about how I made/run/update this blog, but I think I'll keep that for another time since I imagine most of my audience at this point is either not really interested or has no idea about what I would be talking about anyway. Additionally, I am eager to see my post go live and make sure that all of my uploading process works on the Heroku server, so I think that I will end this post here. Thank you all for coming by and seeing the fruits of my labor and I look forward to sharing my experience over J-Term with you!
+tags::Home, Pre-Trip
 ~~~
