@@ -1,2 +1,6 @@
 __pycache__/*
 test/*
+static/images/opt/*
+static/images/orig/*
+static/images/uploads/*
+static/images/thumb/*
