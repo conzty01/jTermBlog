@@ -68,8 +68,10 @@ def createImages():
 
         IMAGE_DIR = os.path.join(PROJECT_ROOT,"static/images")
         UPLOADS_DIR = os.path.join(IMAGE_DIR,"uploads")
+	l = os.listdir(os.path.join(PROJECT_ROOT,"static/images/uploads/"))
+	l.remove(".gitkeep")
 
-        for pic in os.listdir(os.path.join(PROJECT_ROOT,"static/images/uploads/")):
+        for pic in l:
                 img = Image.open(os.path.join(UPLOADS_DIR,pic))
                 optWpercent = (optWidth/float(img.size[0]))                             # Optimized width percent
                 thumbWpercent = (thumbWidth/float(img.size[0]))                         # Thumbnail width percent
