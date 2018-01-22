@@ -70,7 +70,7 @@ background-color: #272932 !important;
     display: block;
     background-color: inherit;
 }
-.w3-content .w3-display-container > img {
+.w3-content .w3-display-container a > img {
     width: 100%;
     max-height: 700px;
 }
