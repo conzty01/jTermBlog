@@ -1,3 +1,6 @@
 __pycache__/*
 test/*
-static/images/pals.jpeg
+static/images/orig/*
+static/images/opt/*
+static/images/uploads/*
+static/images/thumb/*
