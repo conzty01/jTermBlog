@@ -22,9 +22,9 @@
 <div class="w3-card-4 w3-margin w3-white">
 <div class="w3-content w3-display-container">
  {% if post[0][0] != '': %}
- <img id="0" name="active" class="mySlides{{post[5]}}" src="/static/images/{{post[0][0]}}" alt="{{post[1]}}" style="width:100%">
+ <a href="static/images/{{post[0][0]}}" target="_blank" ><img id="0" name="active" class="mySlides{{post[5]}}" src="/static/images/{{post[0][0]}}" alt="{{post[1]}}" style="width:100%"></a>
  {% for i in post[0][1:]: %}
- <img id="{{loop.index}}" name="inactive" class="mySlides{{post[5]}}" src="/static/images/{{i}}" alt="{{post[1]}}" style="width:100%;display:none;">
+ <a href="static/images/{{post[0][0]}}" target="_blank" ><img id="{{loop.index}}" name="inactive" class="mySlides{{post[5]}}" src="/static/images/{{i}}" alt="{{post[1]}}" style="width:100%;display:none;"></a>
  {% endfor %}
 
  {% if post[0]|length > 1: %}
