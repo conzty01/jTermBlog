@@ -1,5 +1,8 @@
 import psycopg2
 import os
+from PIL import Image
+
+PROJECT_ROOT = os.getcwd()
 
 def parsePostFile(filename):
     pList = []
@@ -59,6 +62,31 @@ def enterPost_Tags(cur, projectDict):
         except psycopg2.IntegrityError:
             print("DUPLICATE TAG: postTitle: '{}' tagName: '{}'".format(projectDict["title"],t))
 
+def createImages():
+        optWidth = 1000                                                                 # Optimized width (width of image to$
+        thumbWidth = 50                                                                 # Thumbnail width (width of image to$
+
+        IMAGE_DIR = os.path.join(PROJECT_ROOT,"static/images")
+        UPLOADS_DIR = os.path.join(IMAGE_DIR,"uploads")
+
+        for pic in os.listdir(os.path.join(PROJECT_ROOT,"static/images/uploads/")):
+                img = Image.open(os.path.join(UPLOADS_DIR,pic))
+                optWpercent = (optWidth/float(img.size[0]))                             # Optimized width percent
+                thumbWpercent = (thumbWidth/float(img.size[0]))                         # Thumbnail width percent
+
+                # Optimized
+                hsize = int((float(img.size[1])*float(optWpercent)))
+                optImg = img.resize((optWidth,hsize), Image.ANTIALIAS)
+                optImg.save(os.path.join(os.path.join(IMAGE_DIR,"opt"),pic))
+
+                # Thumbnail
+                hsize = int((float(img.size[1])*float(optWpercent)))
+                thumbImg = img.resize((optWidth,hsize), Image.ANTIALIAS)
+                thumbImg.save(os.path.join(os.path.join(IMAGE_DIR,"thumb"),pic))
+
+                img.close()
+                os.rename(os.path.join(UPLOADS_DIR,pic),os.path.join(IMAGE_DIR,os.path.join("orig",pic)))
+                #os.remove(os.path.join(UPLOADS_DIR,pic))
 def run():
     conn = psycopg2.connect(os.environ["DATABASE_URL"])
     #conn = psycopg2.connect(dbname="blog", user="conzty01")
@@ -75,6 +103,7 @@ def run():
         enterPost_Tags(cur, item)
 
     conn.commit()
+    createImages()
     print("finished")
 
 if __name__ == "__main__":
