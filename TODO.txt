@@ -1,0 +1,5 @@
+Make pages load faster
+	Update the image carosel so that images only download once the next button has been pressed?
+	Maybe optimize images more so that they don't take as long?
+
+Add 
