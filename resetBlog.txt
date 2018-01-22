@@ -1,0 +1,8 @@
+title::
+date::January , 2018
+images::
+image_alt::
+abstract::
+body::
+tags::
+~~~
